@@ -3,12 +3,11 @@ import { useSelector } from "react-redux";
 import Contact from "../Contact/Contact";
 
 import css from "./ContactList.module.css";
+import { selectContacts, selectFilteredContacts } from "../../redux/contactsSlice";
 
 const ContactList = () => {
-  const contacts = useSelector((state) => state.contacts.items);
-  const search = useSelector((state) => state.filter.name);
-
-  const filterContacts = contacts.filter((contact) => contact.name.toLowerCase().includes(search.toLowerCase()) || contact.number.includes(search));
+  const contacts = useSelector(selectContacts);
+  const filterContacts = useSelector(selectFilteredContacts);
 
   return <ul>{contacts && filterContacts.map((contact) => <Contact key={contact.id} contact={contact} />)}</ul>;
 };
